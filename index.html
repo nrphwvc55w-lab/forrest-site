@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    Основной HTML‑файл сайта глэмпинга FORREST.  
+    Дизайн опирается на требования из маркетингового исследования:  
+    — эмоции и сезонность на первом экране;  
+    — фиксированная горизонтальная навигация и бургер‑меню;  
+    — секции: сценарии, домики, пакетные предложения, сервис, личное дерево.  
+    Цветовая схема выдержана в тёмных лесных оттенках с золотыми акцентами.  
+  -->
+  <title>FORREST — премиальный глэмпинг на Дубне</title>
+  <!-- Шрифты -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #10140F;
+      --forest: #1D281B;
+      --olive: #637052;
+      --sage: #AEB69D;
+      --cream: #F6F0E4;
+      --ivory: #FFF9EF;
+      --gold: #C7A76C;
+      --muted: #A8A394;
+      --accent: #8AA56E;
+    }
+
+    /* базовые стили */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--ivory);
+      line-height: 1.6;
+    }
+    img, video {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* Навигация */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(16, 20, 15, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      color: var(--cream);
+    }
+    .navbar .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+    .nav-links li a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+    .nav-links li a:hover {
+      color: var(--gold);
+    }
+    .nav-links li .btn {
+      background: var(--gold);
+      color: var(--black);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: opacity 0.3s ease;
+    }
+    .nav-links li .btn:hover {
+      opacity: 0.9;
+    }
+    /* Бургер-меню */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .burger span {
+      width: 22px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    /* hero */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero video,
+    .hero img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.5) saturate(0.8);
+    }
+    .hero .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(16,20,15,0.25), rgba(16,20,15,0.95));
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--ivory);
+      padding: 24px;
+      animation: fadeIn 1.6s ease;
+    }
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 68px;
+      font-weight: 600;
+      line-height: 0.9;
+      letter-spacing: 3px;
+    }
+    .hero-content p {
+      margin-top: 18px;
+      font-size: 18px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      color: rgba(255, 249, 239, 0.85);
+    }
+    .hero-content .hero-btn {
+      margin-top: 24px;
+      display: inline-block;
+      padding: 16px 28px;
+      background: var(--gold);
+      color: var(--black);
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hero-content .hero-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Общие секции */
+    section {
+      padding: 100px 24px;
+      position: relative;
+    }
+    section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      margin-bottom: 14px;
+      color: var(--gold);
+    }
+    section .section-subtitle {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 40px;
+      max-width: 700px;
+    }
+
+    /* Сценарии */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .scenario-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease;
+      backdrop-filter: blur(12px);
+    }
+    .scenario-card:hover {
+      transform: translateY(-4px);
+    }
+    .scenario-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .scenario-card .content {
+      padding: 20px;
+    }
+    .scenario-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      margin-bottom: 8px;
+      color: var(--ivory);
+    }
+    .scenario-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+    }
+    /* Домики (Residences) */
+    .residence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .residence-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+    }
+    .residence-card:hover {
+      transform: translateY(-3px);
+    }
+    .residence-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .residence-card .content {
+      padding: 20px;
+    }
+    .residence-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      margin-bottom: 6px;
+      color: var(--gold);
+    }
+    .residence-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.78);
+    }
+    .residence-card .price {
+      margin-top: 8px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .residence-card .card-button {
+      display: block;
+      margin-top: 14px;
+      padding: 12px;
+      background: var(--gold);
+      color: var(--black);
+      border-radius: 999px;
+      text-align: center;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+    .residence-card .card-button:hover {
+      opacity: 0.9;
+    }
+    /* Пакеты */
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .package-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .package-card:hover {
+      transform: translateY(-3px);
+    }
+    .package-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .package-card .content {
+      padding: 20px;
+    }
+    .package-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      margin-bottom: 8px;
+      color: var(--gold);
+    }
+    .package-card ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 8px 0 0 0;
+    }
+    .package-card ul li {
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      position: relative;
+      padding-left: 18px;
+    }
+    .package-card ul li::before {
+      content: '\2022';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+    }
+    .package-card .card-button {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 22px;
+      background: var(--gold);
+      color: var(--black);
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+    .package-card .card-button:hover {
+      opacity: 0.9;
+    }
+    /* Сервис */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-3px);
+    }
+    .service-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .service-card .service-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .service-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--gold);
+    }
+    .service-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.78);
+      flex: 1;
+    }
+    /* Дерево */
+    .tree-section {
+      background: linear-gradient(135deg, rgba(29,40,27,0.85), rgba(16,20,15,0.95));
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .tree-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 24px;
+      margin: 32px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+      gap: 16px;
+    }
+    .stat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      color: var(--gold);
+    }
+    .stat span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    /* Контакты */
+    footer {
+      padding: 40px 24px;
+      text-align: center;
+      background: rgba(16,20,15,0.95);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    footer p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 4px 0;
+    }
+    /* Адаптивность */
+    @media (max-width: 900px) {
+      .nav-links {
+        position: fixed;
+        top: 68px;
+        right: -100%;
+        background: rgba(16,20,15,0.98);
+        flex-direction: column;
+        gap: 16px;
+        width: 200px;
+        padding: 20px;
+        transition: right 0.4s ease;
+        height: calc(100vh - 68px);
+      }
+      .nav-links.active {
+        right: 0;
+      }
+      .burger {
+        display: flex;
+      }
+      .nav-links li {
+        padding: 8px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Навигация -->
+  <header>
+    <nav class="navbar">
+      <a href="#home" class="logo">FORREST</a>
+      <ul class="nav-links" id="navMenu">
+        <li><a href="#residences">Домики</a></li>
+        <li><a href="#scenarios">Сценарии</a></li>
+        <li><a href="#packages">Пакеты</a></li>
+        <li><a href="#service">Сервис</a></li>
+        <li><a href="#tree">Дерево</a></li>
+        <li><a href="#booking" class="btn">Бронировать</a></li>
+      </ul>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Герой -->
+  <section id="home" class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://cdn.coverr.co/videos/coverr-tree-branches-moving-in-the-wind-1561574210413?download=1080p" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>Тишина, к которой возвращаются</h1>
+      <p>Премиальный глэмпинг на берегу Дубны. Adults only, pet‑free, тишина как сервис. Посадите своё дерево и возвращайтесь в свой лес снова и снова.</p>
+      <a href="#booking" class="hero-btn">Забронировать</a>
+    </div>
+  </section>
+
+  <!-- Сценарии -->
+  <section id="scenarios">
+    <h2>Сценарии отдыха</h2>
+    <p class="section-subtitle">Выберите формат: романтический уик‑энд, BBQ‑выезд с друзьями, удалённая работа на природе или корпоративная сессия.</p>
+    <div class="scenario-grid">
+      <!-- Абсолютная романтика -->
+      <div class="scenario-card">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop" alt="Абсолютная романтика">
+        <div class="content">
+          <h3>Абсолютная романтика</h3>
+          <p>Премиальный A-frame с личной баней, чаном и ужинами при свечах. Всё включено — от SPA до позднего выезда.</p>
+        </div>
+      </div>
+      <!-- Лесной BBQ-уикенд -->
+      <div class="scenario-card">
+        <img src="https://images.unsplash.com/photo-1540505821638-0315b4f24b82?q=80&w=1600&auto=format&fit=crop" alt="Лесной BBQ-уикенд">
+        <div class="content">
+          <h3>Лесной BBQ‑уикенд</h3>
+          <p>Большой дом с крытой террасой, баней и мясным боксом от шефа для компании из шести человек.</p>
+        </div>
+      </div>
+      <!-- Workation: Офис в лесу -->
+      <div class="scenario-card">
+        <img src="https://images.unsplash.com/photo-1491895200222-0fc4b2b15b52?q=80&w=1600&auto=format&fit=crop" alt="Workation: офис в лесу">
+        <div class="content">
+          <h3>Workation: офис в лесу</h3>
+          <p>Длительное проживание (5–14 ночей) в домике с рабочим местом, интернетом и трёхразовым питанием.</p>
+        </div>
+      </div>
+      <!-- Стратегическая сессия -->
+      <div class="scenario-card">
+        <img src="https://images.unsplash.com/photo-1482954363055-330f1f799f4b?q=80&w=1600&auto=format&fit=crop" alt="Стратегическая сессия">
+        <div class="content">
+          <h3>Стратегическая сессия</h3>
+          <p>Бизнес‑формат: выкуп блока домиков, тёплый шатёр с оборудованием, питание и персональный координатор.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Домики (Residences) -->
+  <section id="residences">
+    <h2>Домики</h2>
+    <p class="section-subtitle">Каждый домик стоит отдельно, скрыт от глаз соседей и предлагает вид на лес или реку. Выберите свою категорию.</p>
+    <div class="residence-grid">
+      <!-- Forest Lodge -->
+      <div class="residence-card">
+        <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1200&auto=format&fit=crop" alt="Forest Lodge">
+        <div class="content">
+          <h3>Forest Lodge</h3>
+          <p>Панорамные окна, камин, терраса и персональный чан. Идеально для романтического отдыха или уединённого ретрита.</p>
+          <div class="price">от 18 000 ₽ / ночь</div>
+          <a href="#booking" class="card-button">Бронировать</a>
+        </div>
+      </div>
+      <!-- A-frame Silence -->
+      <div class="residence-card">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="A-frame Silence">
+        <div class="content">
+          <h3>A‑frame Silence</h3>
+          <p>Стеклянные стены, рабочий стол у окна, быстрый Wi‑Fi. Отличный выбор для workation или медленного отдыха вдвоём.</p>
+          <div class="price">от 14 000 ₽ / ночь</div>
+          <a href="#booking" class="card-button">Бронировать</a>
+        </div>
+      </div>
+      <!-- Big House -->
+      <div class="residence-card">
+        <img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1200&auto=format&fit=crop" alt="Big House">
+        <div class="content">
+          <h3>Big House</h3>
+          <p>Просторный дом с гостиной, тремя спальнями, баней и большим BBQ‑пространством для компании друзей.</p>
+          <div class="price">от 34 000 ₽ / ночь</div>
+          <a href="#booking" class="card-button">Бронировать</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Пакетные предложения -->
+  <section id="packages">
+    <h2>Пакеты</h2>
+    <p class="section-subtitle">Комплексные предложения объединяют проживание, питание, SPA и активности. Ничего не нужно доплачивать: всё продумано за вас.</p>
+    <div class="package-grid">
+      <!-- Абсолютная романтика пакет -->
+      <div class="package-card">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop" alt="Абсолютная романтика">
+        <div class="content">
+          <h3>Абсолютная романтика</h3>
+          <ul>
+            <li>Проживание в премиальном A‑frame с личной баней и подогреваемым чаном【391011914315880†L7138-L7148】.</li>
+            <li>Украшение домика свечами и лепестками, фито‑чан или парный массаж【391011914315880†L7146-L7151】.</li>
+            <li>Полный пансион: горячие обеды и ужины, винный сет, завтрак в постель【391011914315880†L7149-L7152】.</li>
+            <li>SPA‑бокс для двоих и поздний выезд【391011914315880†L7151-L7154】.</li>
+          </ul>
+          <a href="#booking" class="card-button">Подробнее</a>
+        </div>
+      </div>
+      <!-- Лесной BBQ‑уикенд пакет -->
+      <div class="package-card">
+        <img src="https://images.unsplash.com/photo-1540505821638-0315b4f24b82?q=80&w=1600&auto=format&fit=crop" alt="Лесной BBQ-уикенд">
+        <div class="content">
+          <h3>Лесной BBQ‑уикенд</h3>
+          <ul>
+            <li>Большой дом с тремя спальнями, просторной гостиной и крытой террасой【391011914315880†L7170-L7173】.</li>
+            <li>Неограниченное посещение бани【391011914315880†L7173-L7175】.</li>
+            <li>«Мясной бокс» от шефа: стейки, ребра, овощи, соусы и угли【391011914315880†L7176-L7180】.</li>
+            <li>Доставка горячего супа или завтрака, скидка на снегоходы, сапборды, лодки и квадроциклы【391011914315880†L7180-L7183】.</li>
+          </ul>
+          <a href="#booking" class="card-button">Подробнее</a>
+        </div>
+      </div>
+      <!-- Workation: Офис в лесу пакет -->
+      <div class="package-card">
+        <img src="https://images.unsplash.com/photo-1491895200222-0fc4b2b15b52?q=80&w=1600&auto=format&fit=crop" alt="Workation: Офис в лесу">
+        <div class="content">
+          <h3>Workation: офис в лесу</h3>
+          <ul>
+            <li>Длительное проживание (5–14 ночей) в домике с рабочим местом и резервным LTE-модемом【391011914315880†L7203-L7210】.</li>
+            <li>Ежедневный трёхразовый набор домашних сетов и speciality‑кофе, доставляемых бесконтактно【391011914315880†L7211-L7214】.</li>
+            <li>Специальный тариф со скидкой за длительность, выгодный для будних заездов【391011914315880†L7203-L7217】.</li>
+          </ul>
+          <a href="#booking" class="card-button">Подробнее</a>
+        </div>
+      </div>
+      <!-- Стратегическая сессия пакет -->
+      <div class="package-card">
+        <img src="https://images.unsplash.com/photo-1482954363055-330f1f799f4b?q=80&w=1600&auto=format&fit=crop" alt="Стратегическая сессия">
+        <div class="content">
+          <h3>Стратегическая сессия</h3>
+          <ul>
+            <li>Оплата единым счётом с ЭДО【391011914315880†L7223-L7228】.</li>
+            <li>Выкуп блока домиков для сотрудников【391011914315880†L7228-L7230】.</li>
+            <li>Аренда тёплого шатра с экраном, проектором и флипчартами【391011914315880†L7230-L7238】.</li>
+            <li>Полное питание: шведский стол, кофе‑брейки, банкет или выездной гриль【391011914315880†L7238-L7246】.</li>
+            <li>Сопровождение персонального event‑координатора【391011914315880†L7247-L7253】.</li>
+          </ul>
+          <a href="#booking" class="card-button">Подробнее</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Сервис -->
+  <section id="service">
+    <h2>Сервис</h2>
+    <p class="section-subtitle">Все услуги доступны бесконтактно через приложение: выберите время, отметьте «оставить у двери» — мы сделаем всё незаметно.</p>
+    <div class="service-grid">
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop" alt="Завтрак у окна">
+        <div class="service-content">
+          <h4>Завтрак у окна</h4>
+          <p>Горячий завтрак, кофе и ягоды к выбранному времени. Просыпайтесь и наслаждайтесь видом.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1600&auto=format&fit=crop" alt="Хвойный чан">
+        <div class="service-content">
+          <h4>Хвойный чан</h4>
+          <p>Горячий чан с пихтовыми вениками и травами, готовый к вашему возвращению после прогулки.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1523348837708-22fc5f3c08c8?q=80&w=1600&auto=format&fit=crop" alt="Банный ритуал">
+        <div class="service-content">
+          <h4>Банный ритуал</h4>
+          <p>Аромапарение, натуральные скрабы и медовый чай. Традиции русской бани — только для вас.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1556228453-4b5f70f97294?q=80&w=1600&auto=format&fit=crop" alt="SPA и уход">
+        <div class="service-content">
+          <h4>SPA &amp; уход</h4>
+          <p>Массаж, скрабы, обёртывания и йога. Выберите процедуру — и мастер приедет в ваш домик.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Дерево -->
+  <section id="tree" class="tree-section">
+    <h2>Ваше дерево</h2>
+    <p class="section-subtitle">При первом визите вы сажаете собственное дерево — оно становится живым дневником возвращений. Раз в год менеджер отправляет фото вашего дерева и приглашает вновь увидеть его воочию.</p>
+    <img src="https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?q=80&w=1600&auto=format&fit=crop" alt="Ваше дерево" class="tree-img">
+    <div class="stats-grid">
+      <div class="stat">
+        <strong>3</strong>
+        <span>возврата</span>
+      </div>
+      <div class="stat">
+        <strong>2</strong>
+        <span>сезона</span>
+      </div>
+      <div class="stat">
+        <strong>250</strong>
+        <span>баллов лояльности</span>
+      </div>
+      <div class="stat">
+        <strong>QR</strong>
+        <span>бирка дерева</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты и бронирование -->
+  <section id="booking">
+    <h2>Забронировать</h2>
+    <p class="section-subtitle">Оформите бронирование через встроенный модуль. Выберите дом, дату и пакет — и наслаждайтесь отдыхом без хлопот.</p>
+    <!-- Заглушка для booking engine: замените iframe кодом Bnovo или TravelLine при интеграции -->
+    <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:20px; text-align:center;">
+      <p style="margin-bottom:16px; color:var(--muted);">Здесь будет модуль бронирования. Используйте Bnovo или TravelLine для бесшовной интеграции【695677859249029†L6015-L6031】.</p>
+      <a href="#" class="card-button" style="margin-top:0;">Открыть календарь бронирования</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 FORREST. Тишина, которой хочется возвращаться.</p>
+    <p>Телефон: +7 (999) 123‑45‑67 • Email: welcome@forrest.glamping</p>
+    <p>WhatsApp / Telegram / VK — мы на связи 24/7.</p>
+  </footer>
+
+  <script>
+    // Переключение бургер‑меню
+    const burger = document.getElementById('burger');
+    const navMenu = document.getElementById('navMenu');
+    burger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      burger.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
